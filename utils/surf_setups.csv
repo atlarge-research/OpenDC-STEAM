@@ -1,0 +1,9 @@
+workload,name,NoH,battery,allocationType,carbon_trace,failures
+surf,normal,277,0_1000,normal,NL,no
+surf,HS,200,0_1000,normal,NL,no
+surf,TS,277,0_1000,shifting,NL,no
+surf,BAT,277,320_1000,normal,NL,no
+surf,TS_BAT,277,260_1000,shifting,NL,no
+surf,TS_HS,225,0_1000,shifting,NL,no
+surf,HS_BAT,225,300_1000,normal,NL,no
+surf,HS_TS_BAT,225,240_1000,shifting,NL,no
