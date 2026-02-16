@@ -1,0 +1,159 @@
+code,region_name
+AT,Austria
+AU,Australia7
+AU-NSW,New South Wales
+AU-NT,Northern Territory
+AU-QLD,Queensland
+AU-SA,South Australia
+AU-TAS,Tasmania
+AU-VIC,Victoria
+AU-WA,Western Australia
+BA,Bosnia and Herzegovina
+BE,Belgium
+BG,Bulgaria
+BR,Brazil4
+BR-CS,Central Brazil
+BR-N,North Brazil
+BR-NE,North-East Brazil
+BR-S,South Brazil
+CA-ON,Ontario
+CA-QC,Québec
+CH,Switzerland
+CL-SEN,Sistema Eléctrico Nacional
+CR,Costa Rica
+CY,Cyprus
+CZ,Czechia
+DE,Germany
+DK,Denmark3
+DK-BHM,Bornholm
+DK-DK1,West Denmark
+DK-DK2,East Denmark
+EE,Estonia
+ES,Spain
+FI,Finland
+FR,France
+GB,Great Britain
+GB-NIR,Northern Ireland
+GR,Greece
+HK,Hong Kong
+HR,Croatia
+HU,Hungary
+IE,Ireland
+IL,Israel
+IN,Mainland India
+IN-EA,Eastern India
+IN-NE,North Eastern India
+IN-NO,Northern India
+IN-SO,Southern India
+IN-WE,Western India
+IS,Iceland
+IT,Italy6
+IT-CNO,Central North Italy
+IT-CSO,Central South Italy
+IT-NO,North Italy
+IT-SAR,Sardinia
+IT-SIC,Sicily
+IT-SO,South Italy
+JP,Japan9
+JP-CB,Chūbu
+JP-CG,Chūgoku
+JP-HKD,Hokkaidō
+JP-HR,Hokuriku
+JP-KN,Kansai
+JP-KY,Kyūshū
+JP-ON,Okinawa
+JP-TH,Tōhoku
+JP-TK,Tōkyō
+KE,Kenya
+KR,South Korea
+LT,Lithuania
+LU,Luxembourg
+LV,Latvia
+MY,Malaysia2
+MY-WM,Peninsula
+NI,Nicaragua
+NL,Netherlands
+NO,Norway5
+NO-NO1,Southeast Norway
+NO-NO2,Southwest Norway
+NO-NO3,Middle Norway
+NO-NO4,North Norway
+NO-NO5,West Norway
+NZ,New Zealand
+PA,Panama
+PE,Peru
+PH,Philippines3
+PH-LU,Luzon
+PH-MI,Mindanao
+PH-VI,Visayas
+PL,Poland
+PT,Portugal
+RO,Romania
+RS,Serbia
+SE,Sweden4
+SE-SE1,North Sweden
+SE-SE2,North Central Sweden
+SE-SE3,South Central Sweden
+SE-SE4,South Sweden
+SG,Singapore
+SI,Slovenia
+SK,Slovakia
+TR,Turkey
+TW,Taiwan
+US,United States54
+US-CAL-BANC,Balancing Authority of Northern California
+US-CAL-CISO,CAISO
+US-CAL-IID,Imperial Irrigation District
+US-CAL-LDWP,Los Angeles Department of Water and Power
+US-CAL-TIDC,Turlock Irrigation District
+US-CAR-CPLE,Duke Energy Progress East
+US-CAR-CPLW,Duke Energy Progress West
+US-CAR-DUK,Duke Energy Carolinas
+US-CAR-SC,South Carolina Public Service Authority
+US-CAR-SCEG,South Carolina Electric & Gas Company
+US-CAR-YAD,"Alcoa Power Generating, Inc. Yadkin Division"
+US-CENT-SPA,Southwestern Power Administration
+US-CENT-SWPP,Southwest Power Pool
+US-FLA-FMPP,Florida Municipal Power Pool
+US-FLA-FPC,Duke Energy Florida
+US-FLA-FPL,Florida Power and Light Company
+US-FLA-GVL,Gainesville Regional Utilities
+US-FLA-JEA,Jacksonville Electric Authority
+US-FLA-SEC,Seminole Electric Cooperative
+US-FLA-TAL,City of Tallahassee
+US-FLA-TEC,Tampa Electric Company
+US-MIDA-PJM,PJM Interconnection
+US-MIDW-AECI,Associated Electric Cooperative
+US-MIDW-LGEE,Louisville Gas and Electric Company and Kentucky Utilities
+US-MIDW-MISO,Midcontinent ISO
+US-NE-ISNE,ISO New England
+US-NW-AVA,Avista Corporation
+US-NW-BPAT,Bonneville Power Administration
+US-NW-CHPD,Chelan County
+US-NW-DOPD,Douglas County
+US-NW-GCPD,Grant County
+US-NW-GRID,Gridforce Energy Management
+US-NW-IPCO,Idaho Power Company
+US-NW-NEVP,Nevada Power Company
+US-NW-NWMT,Northwestern Energy
+US-NW-PACE,Pacificorp East
+US-NW-PACW,Pacificorp West
+US-NW-PGE,Portland General Electric Company
+US-NW-PSCO,Public Service Company of Colorado
+US-NW-PSEI,Puget Sound Energy
+US-NW-SCL,Seattle City Light
+US-NW-TPWR,City of Tacoma
+US-NW-WACM,Western Area Power Administration - Rocky Mountain Region
+US-NW-WAUW,Western Area Power Administration - Upper Great Plains West
+US-NY-NYIS,New York ISO
+US-SE-SOCO,Southern Company Services
+US-SW-AZPS,Arizona Public Service Company
+US-SW-EPE,El Paso Electric Company
+US-SW-PNM,Public Service Company of New Mexico
+US-SW-SRP,Salt River Project
+US-SW-TEPC,Tucson Electric Power Company
+US-SW-WALC,Western Area Power Administration - Desert Southwest Region
+US-TEN-TVA,Tennessee Valley Authority
+US-TEX-ERCO,Electric Reliability Council of Texas
+UY,Uruguay
+ZA,South Africa
