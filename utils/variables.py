@@ -1,3 +1,5 @@
+# %%
+
 import json 
 
 import pandas as pd
@@ -14,7 +16,7 @@ region_codes = sorted(list(thresholds_dict.keys()))
 battery_capacities_dict = {}
 NoH_dict = {}
 
-battery_capacities_dict["surf"] = sorted([0] + list(range(10, 50, 10)) + list(range(200, 400, 20)) + list(range(400, 1000, 100)))
+battery_capacities_dict["surf"] = sorted([0, 25] + list(range(200, 400, 20)) + list(range(400, 1000, 100)))
 NoH_dict["surf"] = sorted(list(range(25, 500, 25)) + [277])
 
 battery_capacities_dict["marconi"] = sorted([0, 25] + list(range(8000, 14000, 2000)))
@@ -34,3 +36,16 @@ with open(f"{utils_path}/code_to_region.csv", "r") as rf:
         code_to_region[line[:index]] = line[index+1:]
 
 carbon_trace_stats = pd.read_csv(f"{utils_path}/carbon_traces_stats.csv")
+
+# %%
+
+len(battery_capacities_dict["surf"])
+
+# %%
+
+len(battery_capacities_dict["marconi"])
+
+# %%
+
+len(battery_capacities_dict["borg"])
+# %%

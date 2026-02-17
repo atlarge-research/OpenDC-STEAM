@@ -1,6 +1,6 @@
 df_setups = pd.read_csv(f"{base_folder}/{workload}_setups.csv")
 
-df_trace = pd.read_parquet(f"{base_folder}/workloads/{workload}/tasks.parquet")
+df_trace = pd.read_parquet(f"{base_folder}/workload_traces/{workload}/tasks.parquet")
 task_durations = df_trace[["id", "duration"]]
 
 task_durations["id"] = task_durations["id"].astype(int)

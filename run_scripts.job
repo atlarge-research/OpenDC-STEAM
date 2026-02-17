@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#SBATCH --time=15:00:00
+
+echo running script $1
+
+python3 run_scripts.py --job_num $1 

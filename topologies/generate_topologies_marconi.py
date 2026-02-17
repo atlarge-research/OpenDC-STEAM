@@ -11,7 +11,7 @@ sys.path.append(base_folder)
 
 from utils.variables import thresholds_dict, battery_capacities_dict, NoH_dict, region_codes
 
-from topologies.generate_topologies import generate_topologies
+from topologies.generate_topology import generate_topology
 
 # %%
 
@@ -23,4 +23,4 @@ NoHList = NoH_dict[workload]
 for NoH in NoHList:
     for region_code in region_codes:
         for capacity in capacities:
-            generate_topologies(workload, NoH, capacity, region_code, thresholds_dict[region_code]["mean"])
+            generate_topology(workload, NoH, capacity, region_code, thresholds_dict[region_code]["mean"])
