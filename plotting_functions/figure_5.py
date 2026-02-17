@@ -30,7 +30,7 @@ def getDefaultMarconi(df_base):
 
 # %% Get results SURF
 
-df_base_surf = pd.read_csv(f"{base_folder}/output/surf_aggregated.csv")
+df_base_surf = pd.read_csv(f"{base_folder}/results/surf/surf_aggregated.csv")
 df_base_surf["total_carbon"] = df_base_surf["carbon_emission"] + df_base_surf["embodied_carbon_host"] + df_base_surf["embodied_carbon_battery"]
 
 df_surf = df_base_surf[df_base_surf["carbon_trace"] == "NL"]
@@ -45,7 +45,7 @@ df_surf_failures_mean = df_surf_failures.groupby("NoH")[["carbon_emission", "emb
 
 # %% Get results marconi
 
-df_base_marconi = pd.read_csv(f"{base_folder}/output/marconi_aggregated.csv")
+df_base_marconi = pd.read_csv(f"{base_folder}/results/marconi/marconi_aggregated.csv")
 df_base_marconi["total_carbon"] = df_base_marconi["carbon_emission"] + df_base_marconi["embodied_carbon_host"] + df_base_marconi["embodied_carbon_battery"]
 
 df_marconi = df_base_marconi[df_base_marconi["carbon_trace"] == "IT"]
@@ -61,7 +61,7 @@ df_marconi_failures_mean = df_marconi_failures.groupby("NoH")[["carbon_emission"
 
 # %% Get results marconi
 
-df_base_borg = pd.read_csv(f"{base_folder}/output/borg_aggregated.csv")
+df_base_borg = pd.read_csv(f"{base_folder}/results/borg/borg_aggregated.csv")
 df_base_borg["total_carbon"] = df_base_borg["carbon_emission"] + df_base_borg["embodied_carbon_host"] + df_base_borg["embodied_carbon_battery"]
 
 df_borg = df_base_borg[df_base_borg["carbon_trace"] == "US-NY-NYIS"]

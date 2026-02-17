@@ -18,13 +18,13 @@ sys.path.append(base_folder)
 
 # %%
 
-df_base_surf = pd.read_csv(f"{base_folder}/output/surf_aggregated.csv")
+df_base_surf = pd.read_csv(f"{base_folder}/results/surf/surf_aggregated.csv")
 df_base_surf["battery_capacity"] = df_base_surf.battery.apply(lambda x: int(x.split("_")[0]))
 
-df_base_marconi = pd.read_csv(f"{base_folder}/output/marconi_aggregated.csv")
+df_base_marconi = pd.read_csv(f"{base_folder}/results/marconi/marconi_aggregated.csv")
 df_base_marconi["battery_capacity"] = df_base_marconi.battery.apply(lambda x: int(x.split("_")[0]))
 
-df_base_borg = pd.read_csv(f"{base_folder}/output/borg_aggregated.csv")
+df_base_borg = pd.read_csv(f"{base_folder}/results/borg/borg_aggregated.csv")
 df_base_borg["battery_capacity"] = df_base_borg.battery.apply(lambda x: int(x.split("_")[0]))
 
 

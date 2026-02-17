@@ -82,17 +82,19 @@ def generateExportModel(files_to_export, exportInterval = 3600 * 24 * 365, print
 def generateExperiment(workload: str, NoH: int, battery: str, carbon_regions: str, shifting: bool=False, failures:bool = False, 
                        files_to_export: list[str] = ["service", "powerSource", "battery", "host", "task"], 
                        output_folder: str=None, output_addition: str="", exportInterval: int = 3600 * 24 * 365, 
-                       printFrequency: int = 1, embodied_carbon_cost: float=100, failureStartPoint: float=None,
-                       startPoint: float=None):
+                       printFrequency: int = 1, embodied_carbon_cost: float=100, startPoint: float=None, experiment_name: str=None):
     
     if shifting:
         name = f"{NoH}/{battery}/shifting{output_addition}"
     else:
         name = f"{NoH}/{battery}/normal{output_addition}"
     
+    if experiment_name is not None:
+        name = experiment_name
+    
     data = {
-        "outputFolder": f"output/{workload}",
-        "name": name,
+        "outputFolder": f"output/{experiment_name}",
+        "name": f"{workload}/{NoH}/{battery}",
         "topologies": [{"pathToFile": f"topologies/{workload}/{NoH}/{battery}_{embodied_carbon_cost}/{region_code}.json"} for region_code in carbon_regions],
         "workloads": [{
             "pathToFile": f"workload_traces/{workload}",
@@ -113,14 +115,14 @@ def generateExperiment(workload: str, NoH: int, battery: str, carbon_regions: st
         if startPoint is None:
             data["failureModels"] = [{ 
                 "type": "trace-based", 
-                "pathToFile": f"failure_traces/opendc_traces/FB_Msgr_user_reported.parquet",
+                "pathToFile": f"failure_traces/FB_Msgr_user_reported.parquet",
                 "startPoint": i / 10
             } for i in range(10)]
             data["name"] = f"{NoH}/{battery}/failure{output_addition}"
         else:
             data["failureModels"] = [{ 
                 "type": "trace-based", 
-                "pathToFile": f"failure_traces/opendc_traces/FB_Msgr_user_reported.parquet",
+                "pathToFile": f"failure_traces/FB_Msgr_user_reported.parquet",
                 "startPoint": startPoint / 10
             }]
             data["name"] = f"{NoH}/{battery}/failure{startPoint}{output_addition}"

@@ -21,12 +21,12 @@ if not os.path.exists(bash_folder):
 for file in os.listdir(bash_folder):
     shutil.rmtree(f"{bash_folder}/{file}")
 
-def generateBashStript(bash_folder, experiment_list, name, opendcRunner = "STEAM"):
+def generateBashStript(bash_folder, experiment_list, name, steamrunner = "STEAM"):
 
     bash_script_content = """#!/bin/bash"""
 
     for experiment in experiment_list:
-        bash_script_content += f"\n\n./{opendcRunner}/bin/STEAMExperimentRunner --experiment-path \"{experiment}\""
+        bash_script_content += f"\n\n./{steamrunner}/bin/STEAMExperimentRunner --experiment-path \"{experiment}\""
 
     # Specify the file path
     file_path = f"{bash_folder}/{name}.sh"
@@ -97,4 +97,4 @@ for node_idx, experiment_paths_node in enumerate(experiments_per_node_list):
         os.makedirs(f"{bash_folder}/{node_idx}")
 
     for i, experiments in enumerate(splitted_experiments):
-        generateBashStript(bash_folder, experiments, f"{node_idx}/{i}", opendcRunner = "STEAMExperimentRunner")
+        generateBashStript(bash_folder, experiments, f"{node_idx}/{i}", steamrunner = "STEAM")

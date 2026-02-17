@@ -10,23 +10,7 @@ sys.path.append(parent_dir)
 from utils.variables import base_folder
 sys.path.append(base_folder)
 
-def getPeakPower(df_powerSource):
-    return df_powerSource["energy_usage"].max() / 3600 / 1000
-
-def getUniqueTasks(df_task, df_trace):
-
-    df_task_unique = df_task.drop_duplicates(subset=["task_id"], keep="last", inplace=False).reset_index()
-
-    df_task_unique["duration_simulation"] = df_task_unique.finish_time - df_task_unique.submission_time
-    df_task_unique_merged = df_task_unique.merge(df_trace, left_on="task_id", right_on="id").reset_index(drop=True)
-    df_task_unique_merged
-    df_task_unique_merged["delay"] = df_task_unique_merged["duration_simulation"] - df_task_unique_merged["duration"]
-
-    return df_task_unique_merged
-
-
 workload = "surf"
-
 
 # %% reading the data from CSV files
 
