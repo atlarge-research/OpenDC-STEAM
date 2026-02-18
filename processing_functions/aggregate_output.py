@@ -1,6 +1,7 @@
 # %%
 
 import pandas as pd
+from pandas.api.types import is_string_dtype
 import os
 import sys
 
@@ -15,6 +16,9 @@ topology_folder = f"{base_folder}/topologies"
 from utils.variables import region_codes
 
 def getUniqueTasks(df_task, task_durations):
+    if (is_string_dtype(df_task["task_id"])):
+        df_task["task_id"] = df_task["task_name"].astype(int)
+    
     df_task_unique = df_task.drop_duplicates(subset=["task_id"], keep="last", inplace=False).reset_index()
     
     df_task_unique["duration_simulation"] = df_task_unique.finish_time - df_task_unique.submission_time
@@ -33,12 +37,13 @@ SLA_time = 1000 * 60 * 60 * 24
 def handleTasks(result_folder, workload):
     if os.path.exists(f"{result_folder}/task.parquet"):
         df_task = pd.read_parquet(f"{result_folder}/task.parquet")
-        df_task["total_delay"] = df_task.scheduling_delay + df_task.checkpoint_delay + df_task.failure_delay
+        task_durations = df_trace_dict[workload]
 
-        scheduler_delay = df_task.total_delay.mean()
-        
-        SLA_matched = scheduler_delay < SLA_time
-        SLA_violations = 100 - SLA_matched.mean()*100
+        df_task_unique = getUniqueTasks(df_task, task_durations)
+
+        scheduler_delay = df_task_unique.delay.mean()
+        SLA_matched = df_task_unique.SLA_matched.mean()*100
+        SLA_violations = 100 - SLA_matched
         
         return scheduler_delay, SLA_violations
     
@@ -93,7 +98,6 @@ def get_mean_CI(workload, region_code):
 
 def get_remaining_charge(df):
     if (len(df) == 0):
-
         return 0
 
     return df.iloc[-1].charge
@@ -160,5 +164,5 @@ def aggregateResults(folder, workload, NoH, carbon_trace):
 
     total_carbon = operational_carbon + embodied_carbon_host + embodied_carbon_battery
 
-    return [runtime, energy_usage, scheduler_delay, SLA_violations, operational_carbon,
-              embodied_carbon_host, embodied_carbon_battery, total_carbon]
+    return {"runtime": runtime, "energy_usage": energy_usage, "scheduler_delay": scheduler_delay, "SLA_violations": SLA_violations, "carbon_emission": operational_carbon,
+              "embodied_carbon_host": embodied_carbon_host, "embodied_carbon_battery": embodied_carbon_battery, "total_carbon": total_carbon}

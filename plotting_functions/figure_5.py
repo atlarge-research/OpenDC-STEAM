@@ -30,7 +30,7 @@ def getDefaultMarconi(df_base):
 
 # %% Get results SURF
 
-df_base_surf = pd.read_csv(f"{base_folder}/results/surf/surf_aggregated.csv")
+df_base_surf = pd.read_csv(f"{base_folder}/results/surf_aggregated.csv")
 df_base_surf["total_carbon"] = df_base_surf["carbon_emission"] + df_base_surf["embodied_carbon_host"] + df_base_surf["embodied_carbon_battery"]
 
 df_surf = df_base_surf[df_base_surf["carbon_trace"] == "NL"]
@@ -45,7 +45,7 @@ df_surf_failures_mean = df_surf_failures.groupby("NoH")[["carbon_emission", "emb
 
 # %% Get results marconi
 
-df_base_marconi = pd.read_csv(f"{base_folder}/results/marconi/marconi_aggregated.csv")
+df_base_marconi = pd.read_csv(f"{base_folder}/results/marconi_aggregated.csv")
 df_base_marconi["total_carbon"] = df_base_marconi["carbon_emission"] + df_base_marconi["embodied_carbon_host"] + df_base_marconi["embodied_carbon_battery"]
 
 df_marconi = df_base_marconi[df_base_marconi["carbon_trace"] == "IT"]
@@ -61,7 +61,7 @@ df_marconi_failures_mean = df_marconi_failures.groupby("NoH")[["carbon_emission"
 
 # %% Get results marconi
 
-df_base_borg = pd.read_csv(f"{base_folder}/results/borg/borg_aggregated.csv")
+df_base_borg = pd.read_csv(f"{base_folder}/results/borg_aggregated.csv")
 df_base_borg["total_carbon"] = df_base_borg["carbon_emission"] + df_base_borg["embodied_carbon_host"] + df_base_borg["embodied_carbon_battery"]
 
 df_borg = df_base_borg[df_base_borg["carbon_trace"] == "US-NY-NYIS"]
@@ -100,30 +100,6 @@ reduced_carbon_marconi = df_marconi_normal[df_marconi_normal["NoH"] == 800]["tot
 
 default_carbon_borg = df_borg_normal[df_borg_normal["NoH"] == 1534]["total_carbon"].min()
 reduced_carbon_borg = df_borg_normal[df_borg_normal["NoH"] == 900]["total_carbon"].min()
-
-# %%
-
-df_borg_normal_1700 = df_borg_normal[df_borg_normal["NoH"] == 1700]
-df_borg_normal_1900 = df_borg_normal[df_borg_normal["NoH"] == 1900]
-
-SLA_violations_1800 = (df_borg_normal_1700["SLA_violations"].min() + df_borg_normal_1900["SLA_violations"].min()) / 2
-total_carbon_1800 = (df_borg_normal_1700["total_carbon"].min() + df_borg_normal_1900["total_carbon"].min()) / 2
-carbon_emission_1800 = (df_borg_normal_1700["carbon_emission"].min() + df_borg_normal_1900["carbon_emission"].min()) / 2
-embodied_carbon_host_1800 = (df_borg_normal_1700["embodied_carbon_host"].min() + df_borg_normal_1900["embodied_carbon_host"].min()) / 2
-energy_usage_1800 = (df_borg_normal_1700["energy_usage"].min() + df_borg_normal_1900["energy_usage"].min()) / 2
-embodied_carbon_battery_1800 = (df_borg_normal_1700["embodied_carbon_battery"].min() + df_borg_normal_1900["embodied_carbon_battery"].min()) / 2
-
-new_row = {
-    "NoH": 1800,
-    "SLA_violations": SLA_violations_1800,
-    "total_carbon": total_carbon_1800,
-    "carbon_emission": carbon_emission_1800,
-    "embodied_carbon_host": embodied_carbon_host_1800,
-    "energy_usage": energy_usage_1800,
-    "embodied_carbon_battery": embodied_carbon_battery_1800
-}
-
-df_borg_normal = pd.concat([df_borg_normal, pd.DataFrame([new_row])], ignore_index=True)
 
 
 # %%

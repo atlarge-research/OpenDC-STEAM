@@ -18,7 +18,9 @@ from processing_functions.aggregate_output import aggregateResults
 
 # %%
 
-folder = "/home/dante-niewenhuis/Documents/Papers/STEAM-github/output/surf"
+experiment_name = "SC_output"
+
+folder = f"{base_folder}/output/{experiment_name}"
 
 def find_folders_with_trackr_json(root_dir):
     root = Path(root_dir)
@@ -29,18 +31,18 @@ def find_folders_with_trackr_json(root_dir):
 
 # Example usage
 folders = find_folders_with_trackr_json(folder)
-print(folders)
+print(len(folders))
 
 # %%
 
 def get_experiment_info(folder):
+    
+    result_list = []
 
     with open(f"{folder}/trackr.json", "r") as rf:
         trackr = json.load(rf)
         
     for i, experiment_info in enumerate(trackr):
-        print(experiment_info)
-
         workload = Path(experiment_info["workload"]["pathToFile"]).stem
 
         topology = experiment_info["topology"]["pathToFile"]
@@ -50,34 +52,63 @@ def get_experiment_info(folder):
 
         battery_capacity = battery.split("_")[0]
         battery_speed = battery.split("_")[1]
+        battery_embodied_rate = battery.split("_")[2]
+        
+        battery = f"{battery_capacity}_{battery_speed}"
 
         carbon_trace = topology.split("/")[4].split(".")[0]
 
         allocationPolicy = experiment_info["allocationPolicy"]
 
-        if allocationPolicy == "prefab":
-            allocationType = "Normal"
+        if allocationPolicy["type"] == "prefab":
+            allocationType = "normal"
         else:
-            allocationType = "Shifting"
+            allocationType = "shifting"
             
         if "failureModel" in experiment_info:
             failure_model = experiment_info["failureModel"]
             
-            failures = failure_model["startPoint"]
+            if "startPoint" in failure_model:
+                failures = failure_model["startPoint"]
+            else:
+                failures = 0.0
         else:
             failures = "no"
             
-        print(workload,NoH,battery,allocationType,carbon_trace,failures)
-        
         results = aggregateResults(f"{folder}/raw-output/{i}/seed=0", workload, NoH, carbon_trace)
         
-        print(results)
+        result_list.append([workload,NoH,battery,battery_capacity,battery_speed,battery_embodied_rate,allocationType,carbon_trace,failures,results["runtime"],results["energy_usage"],results["scheduler_delay"],results["SLA_violations"],results["carbon_emission"],results["embodied_carbon_host"],results["embodied_carbon_battery"],results["total_carbon"]])
+
+    return result_list
 
 # %%
 
-get_experiment_info(folders[0])
+results = []
 
-# for folder in folders:
-#     get_experiment_info(folder)
+for i, folder in enumerate(folders):
+    print(f"Processing folder {i+1}/{len(folders)}: {folder}")
+
+    results += get_experiment_info(folder)
+
+# %%
+
+df = pd.DataFrame(results, columns=["workload", "NoH", "battery", "battery_capacity", "battery_speed", "battery_embodied_rate", "allocationType", "carbon_trace", 
+                                    "failures", "runtime", "energy_usage", "scheduler_delay", 
+                                    "SLA_violations", "carbon_emission", "embodied_carbon_host", 
+                                    "embodied_carbon_battery", "total_carbon"],
+                  )
+
+dtypes = {"workload": str, "NoH": int, "battery": str, "battery_capacity": int, "battery_speed": int, 
+          "battery_embodied_rate": float, "allocationType": "category", "carbon_trace": "category", "failures": "category", "runtime": float, 
+          "energy_usage": float, "scheduler_delay": float, "SLA_violations": float, "carbon_emission": float, 
+          "embodied_carbon_host": float, "embodied_carbon_battery": float, "total_carbon": float}
+
+df = df.astype(dtypes)
+
+df.to_csv(f"{base_folder}/results/{experiment_name}_aggregated.csv", index=False)
+
+# %%
+
+results
 
 # %%

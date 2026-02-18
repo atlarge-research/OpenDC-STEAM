@@ -16,31 +16,57 @@ sys.path.append(base_folder)
 
 # %%
 
-charging_speeds = [10, 20, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 3000, 6000]
+def getCarbonReduction(df):
+    
+    res = []
 
-mins = np.array([-0.42740537, -0.38969643, -0.32087598, -0.1904874 , -0.17028299,
-       -0.13942928, -0.12867514, -0.12496243, -0.12182402, -0.11984078,
-       -0.11848098, -0.11756958, -0.11728248, -0.11591151, -0.1141083 ,
-       -0.11225086, -0.11039187, -0.10620929, -0.10468525, -0.10356042,
-       -0.10200915, -0.10046831, -0.10046831, -0.10046831])
-means = np.array([-0.47186383, -0.43514312,  0.42176922,  2.59249599,  3.92666547,
-        4.70529563,  5.1928207 ,  5.49699437,  5.70220214,  5.84675262,
-        5.9616365 ,  6.05107197,  6.09575063,  6.13574457,  6.17316206,
-        6.20659728,  6.23426105,  6.25899517,  6.2794496 ,  6.29676269,
-        6.31091283,  6.3230941 ,  6.3230941 ,  6.3230941 ])
-maxs = np.array([-0.1167193 , -0.10206113, -0.01739019,  3.4591862 ,  5.39712497,
-        6.9048761 ,  8.416195  ,  8.7993905 ,  8.93638   ,  9.12754125,
-        9.34557975,  9.4639155 ,  9.51413425,  9.5954695 ,  9.630045  ,
-        9.629702  ,  9.658566  ,  9.69584525,  9.7252515 ,  9.7607915 ,
-        9.8008365 ,  9.847309  ,  9.847309  ,  9.847309  ])
+    positive_regions = []
+    
+    for name, group in df.groupby("carbon_trace"):
+        
+        base_carbon = group[group["battery_capacity"] == 0]["total_carbon"].values[0]
+
+        group["carbon_reduction"] = (base_carbon - group["total_carbon"]) / base_carbon * 100
+
+        res.append(group)
+        
+        max_reduction = group["carbon_reduction"].max()
+        
+        if max_reduction > 0:
+            positive_regions.append(name)
+    
+    df = pd.concat(res, ignore_index=True)
+
+    df = df[df["battery_capacity"] != 0]
+    
+    df = df[df["carbon_trace"].isin(positive_regions)].reset_index(drop=True)
+    
+    return  df
+
+df_res = pd.read_csv(f"/home/dante-niewenhuis/Documents/Papers/STEAM-github/results/surf_charging_speed_aggregated.csv")
 
 # %%
 
-ratio = 3.16 / means.max()
+df_res = getCarbonReduction(df_res)
 
-mins = mins * ratio
-means = means * ratio
-maxs = maxs * ratio
+# %%
+
+charging_speeds = list(sorted(df_res["battery_speed"].unique()))
+
+mins = []
+means = []
+maxs = []
+
+for speed in sorted(charging_speeds):
+    df_speed = df_res[df_res["battery_speed"] == speed]
+    means.append(df_speed["carbon_reduction"].mean())
+    mins.append(df_speed["carbon_reduction"].quantile(0.25))
+    maxs.append(df_speed["carbon_reduction"].quantile(0.75))
+
+
+mins = np.array(mins)
+means = np.array(means)
+maxs = np.array(maxs)
 
 # %%
 
@@ -52,7 +78,7 @@ performance_line = charging_speeds[np.where(distance < 100-performance_thresh)[0
 
 # %%
 
-plt.figure(figsize=(6, 2))
+plt.figure(figsize=(7, 3))
 
 bax = brokenaxes(xlims=((0, 1.2), (2.800, 3.200), (5.800, 6.010)), wspace=.1)  
 
@@ -66,7 +92,7 @@ bax.axvline(x=3.000, color='gray', linestyle='--')
 bax.axvline(x=6.000, color='gray', linestyle='--')
 
 text_hoffset = 0.01
-text_voffset = 0.1
+text_voffset = -0.5
 fontsize = 13
 tick_fontsize = 12
 

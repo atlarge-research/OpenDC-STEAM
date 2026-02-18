@@ -18,21 +18,21 @@ peak_powers = {}
 task_delays = {}
 total_energies = {}
 
-with open(f"{base_folder}/results/{workload}/peak_powers.csv", "r") as f:
+with open(f"{base_folder}/results/{workload}_peak_powers.csv", "r") as f:
     for i, line in enumerate(f):
         if i == 0:
             continue
         name, peak_power = line.strip().split(",")
         peak_powers[name] = float(peak_power)
 
-with open(f"{base_folder}/results/{workload}/task_delays.csv", "r") as f:
+with open(f"{base_folder}/results/{workload}_task_delays.csv", "r") as f:
     for i, line in enumerate(f):
         if i == 0:
             continue
         name, task_delay = line.strip().split(",")
         task_delays[name] = float(task_delay)
 
-with open(f"{base_folder}/results/{workload}/total_energies.csv", "r") as f:
+with open(f"{base_folder}/results/{workload}_total_energies.csv", "r") as f:
     total_energies = {}
     for i, line in enumerate(f):
         if i == 0:

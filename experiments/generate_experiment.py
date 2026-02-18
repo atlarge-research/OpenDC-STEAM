@@ -81,20 +81,20 @@ def generateExportModel(files_to_export, exportInterval = 3600 * 24 * 365, print
         
 def generateExperiment(workload: str, NoH: int, battery: str, carbon_regions: str, shifting: bool=False, failures:bool = False, 
                        files_to_export: list[str] = ["service", "powerSource", "battery", "host", "task"], 
-                       output_folder: str=None, output_addition: str="", exportInterval: int = 3600 * 24 * 365, 
-                       printFrequency: int = 1, embodied_carbon_cost: float=100, startPoint: float=None, experiment_name: str=None):
+                       exportInterval: int = 3600 * 24 * 365, printFrequency: int = 1, embodied_carbon_cost: float=100, 
+                       startPoint: float=None, export_folder: str=None, export_addition: str="", output_folder: str=None):
     
     if shifting:
-        name = f"{NoH}/{battery}/shifting{output_addition}"
+        name = f"{workload}/{NoH}/{battery}/shifting{export_addition}"
     else:
-        name = f"{NoH}/{battery}/normal{output_addition}"
-    
-    if experiment_name is not None:
-        name = experiment_name
+        name = f"{workload}/{NoH}/{battery}/normal{export_addition}"
+        
+    if export_folder is None:
+        export_folder = f"output/"
     
     data = {
-        "outputFolder": f"output/{experiment_name}",
-        "name": f"{workload}/{NoH}/{battery}",
+        "outputFolder": f"{export_folder}",
+        "name": f"{name}",
         "topologies": [{"pathToFile": f"topologies/{workload}/{NoH}/{battery}_{embodied_carbon_cost}/{region_code}.json"} for region_code in carbon_regions],
         "workloads": [{
             "pathToFile": f"workload_traces/{workload}",
@@ -118,14 +118,14 @@ def generateExperiment(workload: str, NoH: int, battery: str, carbon_regions: st
                 "pathToFile": f"failure_traces/FB_Msgr_user_reported.parquet",
                 "startPoint": i / 10
             } for i in range(10)]
-            data["name"] = f"{NoH}/{battery}/failure{output_addition}"
+            data["name"] = f"{workload}/{NoH}/{battery}/failure{export_addition}"
         else:
             data["failureModels"] = [{ 
                 "type": "trace-based", 
                 "pathToFile": f"failure_traces/FB_Msgr_user_reported.parquet",
                 "startPoint": startPoint / 10
             }]
-            data["name"] = f"{NoH}/{battery}/failure{startPoint}{output_addition}"
+            data["name"] = f"{NoH}/{battery}/failure{startPoint}{export_addition}"
 
         data["checkpointModels"] = [
             {
@@ -145,16 +145,16 @@ def generateExperiment(workload: str, NoH: int, battery: str, carbon_regions: st
 
     if failures:
         if startPoint is None:
-            with open(f"{output_folder}/failure{output_addition}.json", 'w') as f:
+            with open(f"{output_folder}/failure{export_addition}.json", 'w') as f:
                 json.dump(data, f, indent=4)
         else:
-            with open(f"{output_folder}/failure{startPoint}{output_addition}.json", 'w') as f:
+            with open(f"{output_folder}/failure{startPoint}{export_addition}.json", 'w') as f:
                 json.dump(data, f, indent=4)
         return
 
     if shifting:
-        with open(f"{output_folder}/shifting{output_addition}.json", 'w') as f:
+        with open(f"{output_folder}/shifting{export_addition}.json", 'w') as f:
             json.dump(data, f, indent=4)
     else:
-        with open(f"{output_folder}/normal{output_addition}.json", 'w') as f:
+        with open(f"{output_folder}/normal{export_addition}.json", 'w') as f:
             json.dump(data, f, indent=4)

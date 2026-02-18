@@ -14,7 +14,7 @@ sys.path.append(base_folder)
 
 # %%
 
-df_base_surf = pd.read_csv(f"{base_folder}/results/surf/surf_aggregated.csv")
+df_base_surf = pd.read_csv(f"{base_folder}/results/surf_aggregated.csv")
 df_base_surf["battery_capacity"] = df_base_surf.battery.apply(lambda x: int(x.split("_")[0]))
 
 # %% Get the correct rows
@@ -125,3 +125,5 @@ plt.yticks(fontsize=fontsize)
 
 plt.tight_layout()
 plt.savefig(f"{base_folder}/figures/figure_8.pdf", bbox_inches='tight')
+
+# %%

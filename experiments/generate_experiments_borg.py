@@ -21,17 +21,18 @@ capacities = battery_capacities_dict[workload]
 NoHList = NoH_dict[workload]
 
 # %%
+# Experiment files to run all combinations of NoH, batterie and shifting required for figure 6, 9, 10, and 11
 
 battery_capacities = battery_capacities_dict[workload]
 NoHList = NoH_dict[workload]
 
 for NoH in NoHList:
     for battery_capacity in battery_capacities:
-        generateExperiment(workload, NoH, f"{battery_capacity}_1000", region_codes, exportInterval=99999999999, printFrequency=24*6, files_to_export=["hosts", "service", "powerSource", "battery"])
-        generateExperiment(workload, NoH, f"{battery_capacity}_1000", region_codes, shifting=True, exportInterval=99999999999, printFrequency=24*6, files_to_export=["hosts", "service", "powerSource", "battery"])
+        generateExperiment(workload, NoH, f"{battery_capacity}_1000", region_codes, exportInterval=99999999999, printFrequency=24*6, files_to_export=["host", "service", "powerSource", "battery"])
+        generateExperiment(workload, NoH, f"{battery_capacity}_1000", region_codes, shifting=True, exportInterval=99999999999, printFrequency=24*6, files_to_export=["host", "service", "powerSource", "battery"])
 
 # %%
-# Failure experiments required for figure 5
+# Scaling experiments required for figure 5
 
 for NoH in NoHList:
     generateExperiment(workload, NoH, "0_1000", ["US-NY-NYIS"], failures=True, exportInterval=99999999999, printFrequency=24*6, output_folder=f"{experiment_folder}/{workload}_scaling/", experiment_name=f"borg_scaling")

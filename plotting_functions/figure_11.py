@@ -13,13 +13,13 @@ sys.path.append(base_folder)
 
 # %%
 
-df_base_surf = pd.read_csv(f"{base_folder}/results/surf/surf_aggregated.csv")
+df_base_surf = pd.read_csv(f"{base_folder}/results/surf_aggregated.csv")
 df_base_surf["battery_capacity"] = df_base_surf.battery.apply(lambda x: int(x.split("_")[0]))
 
-df_base_marconi = pd.read_csv(f"{base_folder}/results/marconi/marconi_aggregated.csv")
+df_base_marconi = pd.read_csv(f"{base_folder}/results/marconi_aggregated.csv")
 df_base_marconi["battery_capacity"] = df_base_marconi.battery.apply(lambda x: int(x.split("_")[0]))
 
-df_base_borg = pd.read_csv(f"{base_folder}/results/borg/borg_aggregated.csv")
+df_base_borg = pd.read_csv(f"{base_folder}/results/borg_aggregated.csv")
 df_base_borg["battery_capacity"] = df_base_borg.battery.apply(lambda x: int(x.split("_")[0]))
 
 # %% Get the correct rows
@@ -70,11 +70,8 @@ def getCarbonReduction(df):
         
         optimal_capacity = min_row["battery_capacity"].values[0]
 
-        # carbon_reduction.append([name] + carbon_reduction_.to_numpy().tolist())
-
         carbon_reduction.append([name, (base_carbon - min_carbon) / base_carbon * 100, optimal_capacity])
 
-    # return pd.DataFrame(carbon_reduction, columns=["region"] + capacities)
     return pd.DataFrame(carbon_reduction, columns=["region", "total_carbon_reduction", "optimal_capacity"])
 
 df_reduction_surf_BAT = getCarbonReduction(df_surf_BAT)
