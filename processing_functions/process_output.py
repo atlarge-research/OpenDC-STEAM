@@ -18,23 +18,6 @@ from processing_functions.aggregate_output import aggregateResults
 
 # %%
 
-experiment_name = "SC_output"
-
-folder = f"{base_folder}/output/{experiment_name}"
-
-def find_folders_with_trackr_json(root_dir):
-    root = Path(root_dir)
-    return [
-        str(path.parent)
-        for path in root.rglob("trackr.json")
-    ]
-
-# Example usage
-folders = find_folders_with_trackr_json(folder)
-print(len(folders))
-
-# %%
-
 def get_experiment_info(folder):
     
     result_list = []
@@ -83,32 +66,39 @@ def get_experiment_info(folder):
 
 # %%
 
-results = []
+def find_folders_with_trackr_json(root_dir):
+    root = Path(root_dir)
+    return [
+        str(path.parent)
+        for path in root.rglob("trackr.json")
+    ]
 
-for i, folder in enumerate(folders):
-    print(f"Processing folder {i+1}/{len(folders)}: {folder}")
+def process_experiment_output(experiment_name):
+    print(f"Processing output for experiment: {experiment_name}")
 
-    results += get_experiment_info(folder)
+    folder = f"{base_folder}/output/{experiment_name}"
+    
+    folders = find_folders_with_trackr_json(folder)
+    print(f"Found {len(folders)} simulations to process.")
 
-# %%
+    results = []
 
-df = pd.DataFrame(results, columns=["workload", "NoH", "battery", "battery_capacity", "battery_speed", "battery_embodied_rate", "allocationType", "carbon_trace", 
-                                    "failures", "runtime", "energy_usage", "scheduler_delay", 
-                                    "SLA_violations", "carbon_emission", "embodied_carbon_host", 
-                                    "embodied_carbon_battery", "total_carbon"],
-                  )
+    for i, folder in enumerate(folders):
+        print(f"Processing folder {i+1}/{len(folders)}: {folder}")
 
-dtypes = {"workload": str, "NoH": int, "battery": str, "battery_capacity": int, "battery_speed": int, 
-          "battery_embodied_rate": float, "allocationType": "category", "carbon_trace": "category", "failures": "category", "runtime": float, 
-          "energy_usage": float, "scheduler_delay": float, "SLA_violations": float, "carbon_emission": float, 
-          "embodied_carbon_host": float, "embodied_carbon_battery": float, "total_carbon": float}
+        results += get_experiment_info(folder)
 
-df = df.astype(dtypes)
+    df = pd.DataFrame(results, columns=["workload", "NoH", "battery", "battery_capacity", "battery_speed", "battery_embodied_rate", "allocationType", "carbon_trace", 
+                                        "failures", "runtime", "energy_usage", "scheduler_delay", 
+                                        "SLA_violations", "carbon_emission", "embodied_carbon_host", 
+                                        "embodied_carbon_battery", "total_carbon"],
+                    )
 
-df.to_csv(f"{base_folder}/results/{experiment_name}_aggregated.csv", index=False)
+    dtypes = {"workload": str, "NoH": int, "battery": str, "battery_capacity": int, "battery_speed": int, 
+            "battery_embodied_rate": float, "allocationType": "category", "carbon_trace": "category", "failures": "category", "runtime": float, 
+            "energy_usage": float, "scheduler_delay": float, "SLA_violations": float, "carbon_emission": float, 
+            "embodied_carbon_host": float, "embodied_carbon_battery": float, "total_carbon": float}
 
-# %%
+    df = df.astype(dtypes)
 
-results
-
-# %%
+    df.to_csv(f"{base_folder}/results/{experiment_name}_aggregated.csv", index=False)

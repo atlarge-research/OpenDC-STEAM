@@ -21,7 +21,7 @@ STEAM requires four input files to function:
 
 ## How to use
 
-**Important:** before you start, you have to set the base_folder variable in the [variables](utils/variables.py) files. This ensures that all input and output files will be collected from and put in the correct locations.
+**Important:** before you start, you have to set the base_folder variable in the [variables](utils/variables.py) files to the path of the artifact. This ensures that all input and output files will be collected from and put in the correct locations.
 
 The experiments executed for the STEAM paper consist of four steps: 
 
@@ -42,7 +42,7 @@ Using [generate_bash_scripts](experiments/generate_bash_scripts.py) we generate 
 **Note:** This method will only work when using slurm. It might also be necessary to add some extra sbatch info required by the syste.
 
 ### *3. Processing output*
-STEAM produces a large amount of raw data. We process the output data into aggregated metrics. The [processing_functions](processing_functions) folder contains all functions needed to process the output data into aggregated CSV files. Using [TODO], we convert all the results in a folder to aggregated csv files. We have provided the aggregated CSV files used in the paper for the [borg](aggregated/borg_aggregated.csv), [marconi](aggregated/marconi_aggregated.csv), and [surf](aggregated/surf_aggregated.csv) workloads. 
+STEAM produces a large amount of raw data. We process the output data into aggregated metrics. The [processing_functions](processing_functions) folder contains all functions needed to process the output data into aggregated CSV files. Using [process_output](processing_functions/process_output.py), we convert all the results in a folder to aggregated csv files. This can, for example, be used to convert the results of the surf workload as shown in [process_surf](processing_functions/process_surf.py). [process_technique_impact](processing_functions/process_technique_impact.py) contains all the process functions needed for figure 11. We have provided the aggregated CSV files used in the paper for the [borg](aggregated/borg_aggregated.csv), [marconi](aggregated/marconi_aggregated.csv), and [surf](aggregated/surf_aggregated.csv) workloads. 
 
 ### *4. Visualization*
 We use the aggregated results created in step 3 to create all the figures shown in the paper. The [plotting_functions](plotting_functions) folder, contains all the files needed to produce the figures from the paper. Using the [plot_functions.sh](plotting_functions/plot_functions.sh), you can create all figures and save them in the [figures](figures) folder.  

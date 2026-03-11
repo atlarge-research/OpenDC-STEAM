@@ -1,27 +1,27 @@
 echo "Plotting figures for the paper..."
 
-echo "Plotting Figure 5..."
-python plotting_functions/figure_5.py
+echo "Plotting battery capacity..."
+python plotting_functions/battery_capacity.py
 
-echo "Plotting Figure 6..."
-python plotting_functions/figure_6.py
+echo "Plotting battery charging..."
+python plotting_functions/battery_charging.py
 
-echo "Plotting Figure 7a..."
-python plotting_functions/figure_7a.py
+echo "Plotting battery embodied..."
+python plotting_functions/battery_embodied.py
 
-echo "Plotting Figure 7b..."
-python plotting_functions/figure_7b.py
+echo "Plotting battery impact..."
+python plotting_functions/battery_impact.py
 
-echo "Plotting Figure 8..."
-python plotting_functions/figure_8.py
+echo "Plotting combined techniques..."
+python plotting_functions/combined_techniques.py
 
-echo "Plotting Figure 9..."
-python plotting_functions/figure_9.py
+echo "Plotting horizontal scaling..."
+python plotting_functions/horizontal_scaling.py
 
-echo "Plotting Figure 10..."
-python plotting_functions/figure_10.py
+echo "Plotting optimal battery..."
+python plotting_functions/optimal_battery.py
 
-echo "Plotting Figure 11..."
-python plotting_functions/figure_11.py
+echo "Plotting technique impact..."
+python plotting_functions/technique_impact.py
 
 echo "Finished plotting all figures!"

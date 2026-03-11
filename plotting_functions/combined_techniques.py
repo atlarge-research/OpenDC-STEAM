@@ -168,10 +168,14 @@ df_reduction_borg_TS_HS_BAT = getCarbonReduction(df_borg_TS_HS_BAT, df_borg_defa
 
 # %%
 
-fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex="col", sharey=True, figsize=(7, 6), gridspec_kw = {'wspace':0.1, 'hspace':0}, constrained_layout=True)
+fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex="col", sharey=True, figsize=(7, 8), gridspec_kw = {'wspace':0.1, 'hspace':0}, constrained_layout=True)
 bbox_props = dict(boxstyle="square,pad=0.4", edgecolor="black", facecolor="gainsboro")
 
-widths = 0.7
+widths = 0.8
+axis_fontsize = 20
+tick_fontsize = 17
+legend_fontsize = 16
+label_fontsize = 16
 
 bp = ax1.boxplot(
     [
@@ -202,10 +206,9 @@ bp = ax1.boxplot(
     vert=False,
     patch_artist=True,
     widths=widths  # Reduce the space between boxes by adjusting the width
-
 )
 
-ax1.annotate("Surf", xy=(0.97, 0.85), xycoords='axes fraction', ha='right', va='top', fontsize=12, fontweight='bold', bbox=bbox_props)
+ax1.annotate("Surf", xy=(0.96, 0.9), xycoords='axes fraction', ha='right', va='top', fontsize=label_fontsize, fontweight='bold', bbox=bbox_props)
 
 bp = ax2.boxplot(
     [
@@ -238,7 +241,7 @@ bp = ax2.boxplot(
     widths=widths  # Reduce the space between boxes by adjusting the width
 )
 
-ax2.annotate("Marconi", xy=(0.97, 0.85), xycoords='axes fraction', ha='right', va='top', fontsize=12, fontweight='bold', bbox=bbox_props)
+ax2.annotate("Marconi", xy=(0.96, 0.9), xycoords='axes fraction', ha='right', va='top', fontsize=label_fontsize, fontweight='bold', bbox=bbox_props)
 
 
 bp = ax3.boxplot(
@@ -272,7 +275,7 @@ bp = ax3.boxplot(
     widths=widths  # Reduce the space between boxes by adjusting the width
 )
 
-ax3.annotate("Borg", xy=(0.97, 0.72), xycoords='axes fraction', ha='right', va='top', fontsize=12, fontweight='bold', bbox=bbox_props)
+ax3.annotate("Borg", xy=(0.96, 0.9), xycoords='axes fraction', ha='right', va='top', fontsize=label_fontsize, fontweight='bold', bbox=bbox_props)
 
 ax1.tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
 ax1.tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
@@ -293,13 +296,18 @@ tick_labels=[
     ][::-1]
 
 for ax in (ax1, ax2, ax3):
-    ax.tick_params(axis='x', labelsize=11)
-    ax.tick_params(axis='y', labelsize=15)
+    ax.tick_params(axis='x', labelsize=tick_fontsize)
+    ax.tick_params(axis='y', labelsize=tick_fontsize)
     
     lbl = ax.get_yticklabels()
     for label in lbl:
         label.set_linespacing(0.7)
     
-ax3.set_xlabel("Total Carbon Reduction [%]", fontsize=16)
+ax3.set_xlabel("Total Carbon Reduction [%]", fontsize=axis_fontsize)
 
-plt.savefig(f"{base_folder}/figures/figure_10.pdf", bbox_inches='tight', dpi=300)
+plt.savefig(f"{base_folder}/figures/combined_techniques.pdf", bbox_inches='tight', dpi=300)
+
+# plt.savefig(f"{base_folder}/figures/combined_techniques.png", bbox_inches='tight', dpi=300)
+
+
+# %%

@@ -88,7 +88,10 @@ optimal_capacities_TS_HS_BAT = df_reduction_surf_TS_HS_BAT[df_reduction_surf_BAT
 
 # %%
 
-plt.figure(figsize=(8, 2))
+plt.figure(figsize=(8, 2.5))
+
+axis_fontsize = 20
+tick_fontsize = 18
 
 bp = plt.boxplot(
     [
@@ -115,9 +118,11 @@ bp = plt.boxplot(
     widths=0.7  # Reduce the space between boxes by adjusting the width
 )
     
-plt.yticks(fontsize=17)
-plt.xticks(fontsize=15)
-plt.xlabel("Optimal capacity [kWh]", fontsize=17)
+plt.yticks(fontsize=tick_fontsize)
+plt.xticks(fontsize=tick_fontsize)
+plt.xlabel("Optimal capacity [kWh]", fontsize=axis_fontsize)
 plt.tight_layout()
 
-plt.savefig(f"{base_folder}/figures/figure_11.pdf", dpi=300)
+plt.savefig(f"{base_folder}/figures/optimal_battery.pdf", dpi=300)
+
+# %%

@@ -211,3 +211,8 @@ __marimo__/
 output
 workload_traces
 .venv_STEAM
+
+STEAM-Artifact.zip
+
+experiments/*/
+topologies/*/

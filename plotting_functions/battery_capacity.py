@@ -95,12 +95,14 @@ for capacity in capacities:
 
 # %%
 
-fig, ax = plt.subplots(figsize=(6, 2))
+fig, ax = plt.subplots(figsize=(8, 3))
 
-fontsize = 15
-tick_fontsize = 12
+tick_fontsize = 15
+legend_fontsize = 15
+label_fontsize = 16
+axis_fontsize = 16
 
-linewidth = 2.5
+linewidth = 3
 ax.plot(capacities, operational_reductions, label="Operational Carbon", color="goldenrod", linestyle="--", linewidth=linewidth)
 ax.plot(capacities, embodied_reductions, label="Embodied Carbon", color="maroon", linestyle=":", linewidth=linewidth)
 ax.plot(capacities, battery_reductions, label="Total Carbon", color="mediumpurple", linewidth=linewidth)
@@ -108,17 +110,20 @@ ax.plot(capacities, battery_reductions, label="Total Carbon", color="mediumpurpl
 best_capacity = capacities[np.argmax(battery_reductions)]
 plt.axvline(x=best_capacity, color="green", linestyle="--")
 plt.annotate(f"Best Capacity: {best_capacity}", (best_capacity+10, -2.5), ha='left', va="bottom", 
-             fontsize=fontsize, color="green")
+             fontsize=label_fontsize, color="green")
 
-plt.legend(loc="upper right", fontsize=13, labelspacing=0, borderpad=0.2)
-plt.xlabel("Battery Capacity [kWh]", fontsize=fontsize)
-plt.ylabel("Carbon Reduction [%]", fontsize=fontsize)
-plt.ylabel("")
+plt.legend(loc="upper right", fontsize=legend_fontsize, 
+           labelspacing=0, borderpad=0.2,bbox_to_anchor=(1, 0.9))
+plt.xlabel("Battery Capacity [kWh]", fontsize=axis_fontsize)
+plt.ylabel("Carbon Reduction [%]", fontsize=axis_fontsize)
+# plt.ylabel("")
 
-ax.yaxis.set_label_coords(-0.08, 0.35)
+# ax.yaxis.set_label_coords(-0.08, 0.35)
 
 
 plt.xticks(fontsize=tick_fontsize)
 plt.yticks(fontsize=tick_fontsize)
 
-plt.savefig(f"{base_folder}/figures/figure_7a.pdf", dpi=300, bbox_inches='tight')
+plt.savefig(f"{base_folder}/figures/battery_capacity.pdf", dpi=300, bbox_inches='tight')
+
+# %%

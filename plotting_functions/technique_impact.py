@@ -44,7 +44,12 @@ with open(f"{base_folder}/results/{workload}_total_energies.csv", "r") as f:
 
 fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(7, 3), sharex=True, gridspec_kw={"hspace": 0.1}, constrained_layout=False)
 
-fontsize = 14
+# fontsize = 14
+
+axis_fontsize = 20
+tick_fontsize = 15
+legend_fontsize = 11
+label_fontsize = 14
 
 keys = ["normal", "HS", "TS", "B", "TS\n+B", "TS\n+HS", "HS\n+B", "TS+HS\n+B "]
 
@@ -54,13 +59,13 @@ ax3.bar(keys, total_energies.values(), color="cornflowerblue", edgecolor="black"
 
 
 bbox_props = dict(boxstyle="square,pad=0.4", edgecolor="black", facecolor="gainsboro")
-ax1.annotate("A", xy=(0.95, 0.88), xycoords='axes fraction', ha='left', va='top', fontsize=12, fontweight='bold', bbox=bbox_props)
-ax2.annotate("B", xy=(0.95, 0.88), xycoords='axes fraction', ha='left', va='top', fontsize=12, fontweight='bold', bbox=bbox_props)  
-ax3.annotate("C", xy=(0.95, 0.88), xycoords='axes fraction', ha='left', va='top', fontsize=12, fontweight='bold', bbox=bbox_props)
+ax1.annotate("A", xy=(0.95, 0.88), xycoords='axes fraction', ha='left', va='top', fontsize=label_fontsize, fontweight='bold', bbox=bbox_props)
+ax2.annotate("B", xy=(0.95, 0.88), xycoords='axes fraction', ha='left', va='top', fontsize=label_fontsize, fontweight='bold', bbox=bbox_props)  
+ax3.annotate("C", xy=(0.95, 0.88), xycoords='axes fraction', ha='left', va='top', fontsize=label_fontsize, fontweight='bold', bbox=bbox_props)
 
 bbox_props = dict(boxstyle="square,pad=0.4", edgecolor="black", facecolor="white")
 ax1.annotate("HS: Hardware Scaling\nTS: Temporal Shifting\nB: Battery", 
-             xy=(0.03, 0.88), xycoords='axes fraction', ha='left', va='top', fontsize=10, bbox=bbox_props)
+             xy=(0.03, 0.88), xycoords='axes fraction', ha='left', va='top', fontsize=legend_fontsize, bbox=bbox_props)
 
 if workload == "surf":
     ax3.set_ylim(45, 60)
@@ -71,9 +76,9 @@ if workload == "marconi":
 if workload == "borg":
     ax3.set_ylim(300, 550)
 
-ax1.tick_params(axis='y', labelsize=11)  # Increase the size of the y-axis labels
-ax2.tick_params(axis='y', labelsize=11)  # Increase the size of the labels
-ax3.tick_params(axis='y', labelsize=11)  # Increase the size of the labels
+ax1.tick_params(axis='y', labelsize=tick_fontsize+2)  # Increase the size of the y-axis labels
+ax2.tick_params(axis='y', labelsize=tick_fontsize+2)  # Increase the size of the labels
+ax3.tick_params(axis='y', labelsize=tick_fontsize+2)  # Increase the size of the labels
 
 if workload == "surf":
     ax3.set_yticks([45, 50, 55])
@@ -84,7 +89,7 @@ if workload == "marconi":
 if workload == "borg":
     ax3.set_yticks([300, 425, 550])
     
-plt.xticks(fontsize=fontsize)  # Increase the size of the labels
-plt.savefig(f"{base_folder}/figures/figure_9.pdf", dpi=300, bbox_inches="tight")
+plt.xticks(fontsize=tick_fontsize)  # Increase the size of the labels
+plt.savefig(f"{base_folder}/figures/technique_impact.pdf", dpi=300, bbox_inches="tight")
 
 # %%

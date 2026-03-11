@@ -35,5 +35,5 @@ for NoH in NoHList:
 # Scaling experiments required for figure 5
 
 for NoH in NoHList:
-    generateExperiment(workload, NoH, "0_1000", ["IT"], failures=True, exportInterval=99999999999, printFrequency=24*6, output_folder=f"{experiment_folder}/{workload}_scaling/", experiment_name=f"marconi_scaling")
-    generateExperiment(workload, NoH, "0_1000", ["IT"], exportInterval=99999999999, printFrequency=24*6, output_folder=f"{experiment_folder}/{workload}_scaling/", experiment_name=f"marconi_scaling")
+    generateExperiment(workload, NoH, "0_1000", ["IT"], failures=True, exportInterval=99999999999, printFrequency=24*6)
+    generateExperiment(workload, NoH, "0_1000", ["IT"], exportInterval=99999999999, printFrequency=24*6)

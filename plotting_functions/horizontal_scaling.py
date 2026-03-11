@@ -106,7 +106,11 @@ reduced_carbon_borg = df_borg_normal[df_borg_normal["NoH"] == 900]["total_carbon
 
 fig, ((ax1, ax2, ax3), (ax4, ax5, ax6)) = plt.subplots(2, 3, figsize=(18, 4), sharex="col", gridspec_kw = {'wspace':0.15, 'hspace':0.1})
 
-fontsize = 15
+tick_fontsize = 16
+label_fontsize = 16
+title_fontsize = 19
+legend_fontsize = 13
+axis_fontsize = 18
 
 def plotResults(ax, label, results, default, NoH_90 = None, NoH_99 = None, show_legend = False, hide_ticks = True):
 
@@ -115,8 +119,8 @@ def plotResults(ax, label, results, default, NoH_90 = None, NoH_99 = None, show_
     ax.plot(results["NoH"], results["total_carbon"] / 1_000_000, label="Total Carbon", color="forestgreen")
     ax.set_ylim([-2,None])
 
-    ax.tick_params(axis='both', which='major', labelsize=fontsize)
-    ax.tick_params(axis='both', which='minor', labelsize=fontsize - 2)
+    ax.tick_params(axis='both', which='major', labelsize=tick_fontsize)
+    ax.tick_params(axis='both', which='minor', labelsize=tick_fontsize - 2)
 
     # Create a second y-axis for SLA violationss
     axb = ax.twinx()
@@ -125,19 +129,19 @@ def plotResults(ax, label, results, default, NoH_90 = None, NoH_99 = None, show_
     axb.tick_params(axis='y', colors='firebrick')
     axb.spines['right'].set_color('firebrick')
     
-    axb.tick_params(axis='both', which='major', labelsize=fontsize, colors='firebrick')
+    axb.tick_params(axis='both', which='major', labelsize=tick_fontsize, colors='firebrick')
     
     if hide_ticks:
         axb.set_yticks([])
 
     bbox_props = dict(boxstyle="square,pad=0.4", edgecolor="black", facecolor="gainsboro")
-    ax.text(0.05, 0.1, label, transform=ax.transAxes, fontsize=fontsize, verticalalignment='bottom', bbox=bbox_props)
+    ax.text(0.05, 0.1, label, transform=ax.transAxes, fontsize=label_fontsize, verticalalignment='bottom', bbox=bbox_props)
 
     lines_1, labels_1 = ax.get_legend_handles_labels()
     lines_2, labels_2 = axb.get_legend_handles_labels()
 
     if show_legend:
-        ax.legend(lines_1 + lines_2, labels_1 + labels_2, fontsize=12, loc="lower right", labelspacing=0, borderpad=0.2)
+        ax.legend(lines_1 + lines_2, labels_1 + labels_2, fontsize=legend_fontsize, loc="lower right", labelspacing=0, borderpad=0.2)
 
 NoH_99_surf_normal = df_surf_normal[df_surf_normal["SLA_violations"] <= 1]["NoH"].min()
 NoH_90_surf_normal = df_surf_normal[df_surf_normal["SLA_violations"] <= 10]["NoH"].min()
@@ -173,22 +177,22 @@ NoH_99_surf_normal = df_surf_normal[df_surf_normal["SLA_violations"] <= 1]["NoH"
 NoH_90_surf_normal = df_surf_normal[df_surf_normal["SLA_violations"] <= 10]["NoH"].min()
 
 ax1.axvline(NoH_99_surf_normal, color="firebrick", linestyle="--")
-ax1.text(NoH_99_surf_normal - 5, ax1.get_ylim()[1] * 0.95, f"1%", color="firebrick", fontsize=fontsize, ha='right', va="top")
+ax1.text(NoH_99_surf_normal - 5, ax1.get_ylim()[1] * 0.95, f"1%", color="firebrick", fontsize=label_fontsize, ha='right', va="top")
 
 ax1.set_xticks([25, 100, 200, 300])
 
 default = 277
 ax1.axvline(default, color="dimgray", linestyle="--")
-ax1.text(default - 5, ax1.get_ylim()[1] * 0.95, f"Original\n{default}", color="dimgray", fontsize=fontsize, ha='right', va="top")
+ax1.text(default - 5, ax1.get_ylim()[1] * 0.95, f"Original\n{default}", color="dimgray", fontsize=label_fontsize, ha='right', va="top")
    
 NoH_99_surf_failures = df_surf_failures_mean[df_surf_failures_mean["SLA_violations"] <= 1]["NoH"].min()
 NoH_90_surf_failures = df_surf_failures_mean[df_surf_failures_mean["SLA_violations"] <= 10]["NoH"].min()
 
 ax4.axvline(NoH_99_surf_failures, color="firebrick", linestyle="--")
-ax4.text(NoH_99_surf_failures - 5, ax4.get_ylim()[1] * 0.95, f"1%", color="firebrick", fontsize=fontsize, ha='right', va="top")
+ax4.text(NoH_99_surf_failures - 5, ax4.get_ylim()[1] * 0.95, f"1%", color="firebrick", fontsize=label_fontsize, ha='right', va="top")
 
 ax4.axvline(default, color="dimgray", linestyle="--")
-ax4.text(default - 5, ax4.get_ylim()[1] * 0.95, f"Original\n{default}", color="dimgray", fontsize=fontsize, ha='right', va="top")
+ax4.text(default - 5, ax4.get_ylim()[1] * 0.95, f"Original\n{default}", color="dimgray", fontsize=label_fontsize, ha='right', va="top")
   
 
 # MARCONI
@@ -197,20 +201,20 @@ NoH_99_marconi_normal = df_marconi_normal[df_marconi_normal["SLA_violations"] <=
 NoH_90_marconi_normal = df_marconi_normal[df_marconi_normal["SLA_violations"] <= 10]["NoH"].min()
 
 ax2.axvline(NoH_99_marconi_normal, color="firebrick", linestyle="--")
-ax2.text(NoH_99_marconi_normal - 5, ax2.get_ylim()[1] * 0.95, f"1%", color="firebrick", fontsize=fontsize, ha='right', va="top")
+ax2.text(NoH_99_marconi_normal - 5, ax2.get_ylim()[1] * 0.95, f"1%", color="firebrick", fontsize=label_fontsize, ha='right', va="top")
 
 default = 972
 ax2.axvline(default, color="dimgray", linestyle="--")
-ax2.text(default + 5, ax2.get_ylim()[1] * 0.95, f"Original\n{default}", color="dimgray", fontsize=fontsize, ha='left', va="top")
+ax2.text(default + 5, ax2.get_ylim()[1] * 0.95, f"Original\n{default}", color="dimgray", fontsize=label_fontsize, ha='left', va="top")
 
 NoH_99_marconi_failures = df_marconi_failures_mean[df_marconi_failures_mean["SLA_violations"] <= 1]["NoH"].min()
 NoH_90_marconi_failures = df_marconi_failures_mean[df_marconi_failures_mean["SLA_violations"] <= 10]["NoH"].min()
 
 ax5.axvline(NoH_99_marconi_failures, color="firebrick", linestyle="--")
-ax5.text(NoH_99_marconi_failures - 5, ax5.get_ylim()[1] * 0.95, f"1%", color="firebrick", fontsize=fontsize, ha='right', va="top")
+ax5.text(NoH_99_marconi_failures - 5, ax5.get_ylim()[1] * 0.95, f"1%", color="firebrick", fontsize=label_fontsize, ha='right', va="top")
 
 ax5.axvline(default, color="dimgray", linestyle="--")
-ax5.text(default + 5, ax5.get_ylim()[1] * 0.95, f"Original\n{default}", color="dimgray", fontsize=fontsize, ha='left', va="top")
+ax5.text(default + 5, ax5.get_ylim()[1] * 0.95, f"Original\n{default}", color="dimgray", fontsize=label_fontsize, ha='left', va="top")
 
 # BORG
 
@@ -218,29 +222,29 @@ NoH_99_borg_normal = df_borg_normal[df_borg_normal["SLA_violations"] <= 1]["NoH"
 NoH_90_borg_normal = df_borg_normal[df_borg_normal["SLA_violations"] <= 10]["NoH"].min()
 
 ax3.axvline(NoH_99_borg_normal, color="firebrick", linestyle="--")
-ax3.text(NoH_99_borg_normal + 5, ax3.get_ylim()[1] * 0.95, f"1%", color="firebrick", fontsize=fontsize, ha='left', va="top")
+ax3.text(NoH_99_borg_normal + 5, ax3.get_ylim()[1] * 0.95, f"1%", color="firebrick", fontsize=label_fontsize, ha='left', va="top")
 
 default = 1534
 ax3.axvline(default, color="dimgray", linestyle="--")
-ax3.text(default - 5, ax3.get_ylim()[1] * 0.95, f"Original\n{default}", color="dimgray", fontsize=fontsize, ha='right', va="top")
+ax3.text(default - 5, ax3.get_ylim()[1] * 0.95, f"Original\n{default}", color="dimgray", fontsize=label_fontsize, ha='right', va="top")
 
 NoH_99_borg_failures = df_borg_failures_mean[df_borg_failures_mean["SLA_violations"] <= 1]["NoH"].min()
 NoH_90_borg_failures = df_borg_failures_mean[df_borg_failures_mean["SLA_violations"] <= 10]["NoH"].min()
 
 ax6.axvline(default, color="dimgray", linestyle="--")
-ax6.text(default - 5, ax6.get_ylim()[1] * 0.95, f"Original\n{default}", color="dimgray", fontsize=fontsize, ha='right', va="top")
+ax6.text(default - 5, ax6.get_ylim()[1] * 0.95, f"Original\n{default}", color="dimgray", fontsize=label_fontsize, ha='right', va="top")
 
-ax1.set_title("Surf", fontsize=fontsize, fontweight="bold")
-ax2.set_title("Marconi", fontsize=fontsize, fontweight="bold")
-ax3.set_title("Borg", fontsize=fontsize, fontweight="bold")
+ax1.set_title("Surf", fontsize=title_fontsize, fontweight="bold")
+ax2.set_title("Marconi", fontsize=title_fontsize, fontweight="bold")
+ax3.set_title("Borg", fontsize=title_fontsize, fontweight="bold")
 
-ax5.set_xlabel("Number of Hosts", fontsize=fontsize)
+ax5.set_xlabel("Number of Hosts", fontsize=axis_fontsize)
 
-fig.text(0.09, 0.5, "Carbon Emission [MgCO2eq]", va='center', rotation='vertical', fontsize=fontsize)
-fig.text(0.93, 0.5, "SLA violations [%]", va='center', rotation='vertical', fontsize=fontsize)
+fig.text(0.09, 0.5, "Carbon Emission [MgCO2eq]", va='center', rotation='vertical', fontsize=axis_fontsize)
+fig.text(0.93, 0.5, "SLA violations [%]", va='center', rotation='vertical', fontsize=axis_fontsize)
 
 plt.tight_layout()
 
-plt.savefig(f"{base_folder}/figures/figure_5.pdf", bbox_inches='tight', pad_inches=0)
+plt.savefig(f"{base_folder}/figures/horizontal_scaling.pdf", bbox_inches='tight', pad_inches=0)
 
 # %%

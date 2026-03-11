@@ -94,6 +94,13 @@ good_percentages = np.array(good_percentages)
 
 plt.figure(figsize=(6,4))
 
+# fontsize= 16
+
+axis_fontsize = 20
+tick_fontsize = 15
+legend_fontsize = 16
+label_fontsize = 16
+
 fill_good = plt.fill_between(embodied_costs, bad_percentages + med_percentages, 100, hatch="-", label="High")
 fill_med = plt.fill_between(embodied_costs, bad_percentages, bad_percentages + med_percentages, hatch='\\', label="Low")
 fill_bad = plt.fill_between(embodied_costs, 0, bad_percentages, hatch="//", label="Negative")
@@ -109,21 +116,18 @@ plt.plot(embodied_costs, bad_percentages + med_percentages, color="gray")
 
 plt.axvline(x=100, color="black", linestyle="--")
 
-fontsize= 16
+plt.annotate("Experimental setup:\n100 kgCO2/kWh", (110, 101), ha="left", va="top", 
+             fontsize=label_fontsize, bbox=dict(facecolor='white', alpha=0.9, edgecolor='black'))
 
-plt.annotate("Experimental setup:\n100 kgCO2/kWh", (95, 150), ha="left", va="top", 
-             fontsize=fontsize, bbox=dict(facecolor='white', alpha=0.9, edgecolor='black'))
+plt.legend(title="$\\bf{Effectiveness}$", title_fontsize=legend_fontsize, framealpha=1, fontsize=legend_fontsize)
 
+plt.xlabel("Embodied carbon cost [kgCO2/kWh]", fontsize=axis_fontsize)
+plt.ylabel("Percentage [%]", fontsize=axis_fontsize)
 
-plt.legend(title="$\\bf{Effectiveness}$", title_fontsize=fontsize, framealpha=1, fontsize=fontsize)
-
-plt.xlabel("Embodied carbon cost [kgCO2/kWh]", fontsize=fontsize)
-plt.ylabel("Percentage [%]", fontsize=fontsize)
-
-plt.xticks(fontsize=fontsize)
-plt.yticks(fontsize=fontsize)
+plt.xticks(fontsize=tick_fontsize)
+plt.yticks(fontsize=tick_fontsize)
 
 plt.tight_layout()
-plt.savefig(f"{base_folder}/figures/figure_8.pdf", bbox_inches='tight')
+plt.savefig(f"{base_folder}/figures/battery_embodied.pdf", bbox_inches='tight')
 
 # %%

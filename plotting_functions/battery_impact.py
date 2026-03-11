@@ -102,8 +102,9 @@ df_reduction_borg.loc[df_reduction_borg["total_carbon_reduction"] < 0, "total_ca
 fig, axs = plt.subplots(3, 1, sharex=True, figsize=(6, 4), gridspec_kw = {'wspace':0, 'hspace':0.1})
 plt.subplots_adjust(hspace=0)
 
-label_fontsize = 17
-tick_fontsize = 12
+label_fontsize = 16
+tick_fontsize = 15
+axis_fontsize = 20
 
 num_bins = 12
 
@@ -127,13 +128,13 @@ cm_g = LinearSegmentedColormap.from_list(cmap_name, colors, N=n_bins)
 
 def addHist(df, ax, title):
     n, bins, patches = ax.hist(df.total_carbon_reduction, bins=common_bins, edgecolor='black', linewidth=0.5, weights=np.ones(len(df)) / len(df) * 100)
-    ax.set_ylabel('Percentage [%]', fontsize=label_fontsize)
+    ax.set_ylabel('Percentage [%]', fontsize=axis_fontsize)
     # Add title with a small gray box behind it
     bbox_props = dict(boxstyle="square,pad=0.4", edgecolor="black", facecolor="gainsboro")
-    ax.annotate(title, xy=(0.97, 0.85), xycoords='axes fraction', ha='right', va='top', fontsize=12, fontweight='bold', bbox=bbox_props)
+    ax.annotate(title, xy=(0.97, 0.85), xycoords='axes fraction', ha='right', va='top', fontsize=label_fontsize, fontweight='bold', bbox=bbox_props)
     ax.axvline(df.total_carbon_reduction.mean(), color='black', linestyle='--')
     ax.annotate(f'Mean reduction:\n{df.total_carbon_reduction.mean():.2f}%', xy=(df.total_carbon_reduction.mean() + 1, ax.get_ylim()[1] - 2),
-                ha='left', va='top', fontsize=11)
+                ha='left', va='top', fontsize=label_fontsize)
     
     for i in range(len(patches)):
         if (bins[i] < 0):
@@ -155,10 +156,16 @@ addHist(df_reduction_borg, axs[2], "Borg")
 # Remove y-axis labels for the middle and bottom plots
 axs[0].set_ylabel('')
 axs[2].set_ylabel('')
-plt.xlabel("Max total carbon reduction [%]", fontsize=label_fontsize)
+plt.xlabel("Max total carbon reduction [%]", fontsize=axis_fontsize)
 plt.xticks(fontsize=tick_fontsize)
 plt.yticks(fontsize=tick_fontsize)
+
+axs[2].set_xlabel('Max total carbon reduction [%]', fontsize=axis_fontsize)
+axs[0].set_yticklabels(axs[0].get_yticklabels(), fontsize=tick_fontsize)
+axs[1].set_yticklabels(axs[1].get_yticklabels(), fontsize=tick_fontsize)
+axs[2].set_yticklabels(axs[2].get_yticklabels(), fontsize=tick_fontsize)
+
 plt.tight_layout()
-plt.savefig(f"{base_folder}/figures/figure_6.pdf", bbox_inches='tight')
+plt.savefig(f"{base_folder}/figures/battery_impact.pdf", bbox_inches='tight')
 
 # %%
