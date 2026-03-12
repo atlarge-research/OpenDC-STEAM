@@ -43,7 +43,7 @@ def getCarbonReduction(df):
     
     return  df
 
-df_res = pd.read_csv(f"/home/dante-niewenhuis/Documents/Papers/STEAM-github/results/surf_charging_speed_aggregated.csv")
+df_res = pd.read_csv(f"{base_folder}/results/surf_charging_speed_aggregated.csv")
 
 # %%
 
