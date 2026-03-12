@@ -4,7 +4,11 @@ import json
 
 import pandas as pd
 
-base_folder = "/home/dante-niewenhuis/Documents/Papers/STEAM-github"
+# base_folder = "/home/dante-niewenhuis/Documents/Papers/STEAM-github"
+
+base_folder = None # Update this to the path of the STEAM repository on your machine. For example: "/home/dante-niewenhuis/Documents/Papers/STEAM-github"
+
+assert base_folder is not None, "Please set the base_folder variable in utils/variables.py to the path of the STEAM repository on your machine."
 
 utils_path = f"{base_folder}/utils"
 

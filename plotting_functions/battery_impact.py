@@ -105,6 +105,7 @@ plt.subplots_adjust(hspace=0)
 label_fontsize = 16
 tick_fontsize = 15
 axis_fontsize = 20
+legend_fontsize = 16
 
 num_bins = 12
 

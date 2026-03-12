@@ -78,7 +78,7 @@ performance_line = charging_speeds[np.where(distance < 100-performance_thresh)[0
 
 # %%
 
-plt.figure(figsize=(6, 4.5))
+plt.figure(figsize=(6, 4))
 
 bax = brokenaxes(xlims=((0, 1.2), (2.800, 3.200), (5.800, 6.010)), wspace=.1)  
 
@@ -93,10 +93,10 @@ bax.axvline(x=6.000, color='black', linestyle='--', linewidth=2)
 
 text_hoffset = 0.02
 text_voffset = -1.5
-label_fontsize = 17
-axis_fontsize = 23
-tick_fontsize = 17
-legend_fontsize = 18
+label_fontsize = 16
+axis_fontsize = 20
+tick_fontsize = 15
+legend_fontsize = 16
 
 bax.annotate(f'{performance_thresh}%\nPerformance:\n{performance_line/1000}kW/kWh', 
              xy=(performance_line/1000+text_hoffset, text_voffset), fontsize=label_fontsize,

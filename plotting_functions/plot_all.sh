@@ -1,19 +1,28 @@
+if command -v python3 >/dev/null 2>&1; then
+    PYTHON=python3
+elif command -v python >/dev/null 2>&1; then
+    PYTHON=python
+else
+    echo "Python is not installed."
+    exit 1
+fi
+
 echo "Plotting figures for the paper..."
 
 echo "Plotting battery capacity..."
-python plotting_functions/battery_capacity.py
+$PYTHON plotting_functions/battery_capacity.py
 
 echo "Plotting battery charging..."
-python plotting_functions/battery_charging.py
+$PYTHON plotting_functions/battery_charging.py
 
 echo "Plotting battery embodied..."
-python plotting_functions/battery_embodied.py
+$PYTHON plotting_functions/battery_embodied.py
 
 echo "Plotting battery impact..."
-python plotting_functions/battery_impact.py
+$PYTHON plotting_functions/battery_impact.py
 
 echo "Plotting combined techniques..."
-python plotting_functions/combined_techniques.py
+$PYTHON plotting_functions/combined_techniques.py
 
 echo "Plotting horizontal scaling..."
 python plotting_functions/horizontal_scaling.py

@@ -172,7 +172,7 @@ fig, (ax1, ax2, ax3) = plt.subplots(3, 1, sharex="col", sharey=True, figsize=(7,
 bbox_props = dict(boxstyle="square,pad=0.4", edgecolor="black", facecolor="gainsboro")
 
 widths = 0.8
-axis_fontsize = 20
+axis_fontsize = 18
 tick_fontsize = 17
 legend_fontsize = 16
 label_fontsize = 16

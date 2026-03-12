@@ -95,10 +95,10 @@ for capacity in capacities:
 
 # %%
 
-fig, ax = plt.subplots(figsize=(8, 3))
+fig, ax = plt.subplots(figsize=(6, 4))
 
 tick_fontsize = 15
-legend_fontsize = 15
+legend_fontsize = 16
 label_fontsize = 16
 axis_fontsize = 16
 
@@ -113,7 +113,7 @@ plt.annotate(f"Best Capacity: {best_capacity}", (best_capacity+10, -2.5), ha='le
              fontsize=label_fontsize, color="green")
 
 plt.legend(loc="upper right", fontsize=legend_fontsize, 
-           labelspacing=0, borderpad=0.2,bbox_to_anchor=(1, 0.9))
+           labelspacing=0, borderpad=0.2,bbox_to_anchor=(1, 0.85))
 plt.xlabel("Battery Capacity [kWh]", fontsize=axis_fontsize)
 plt.ylabel("Carbon Reduction [%]", fontsize=axis_fontsize)
 # plt.ylabel("")
