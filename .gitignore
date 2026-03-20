@@ -209,10 +209,13 @@ __marimo__/
 # My custom ignore patterns
 
 output
-workload_traces
 .venv_STEAM
 
 STEAM-Artifact.zip
 
 experiments/*/
 topologies/*/
+
+/workload_traces/**
+!/workload_traces/surf/
+!/workload_traces/surf/**

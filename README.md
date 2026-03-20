@@ -11,8 +11,11 @@ STEAM is accepted for the 26th IEEE International Symposium on Cluster, Cloud, a
 **Important:** A full artifact, including all traces, experiments, and results, can be found on [Zenodo](https://zenodo.org/records/18987563).
 
 ## Input files
-STEAM requires four input files to function: 
+STEAM utilizes five input files during simulation: 
 
+- *Workload* traces define the workload that needs to be simulated. The Surf workload is included in this repo and can found [here](workload_traces/surf). For the Marconi and Borg workload, see [Zenodo](https://zenodo.org/records/18987563). Workload traces consist of two files: 
+    - **task.parquet** defines when tasks arrive, and their computational requirements
+    - **fragments.parquet** defines for each task their computational requirements over time. 
 - *Topology* files define the available hardware in the data center. The file also defines the power models used by the simulator to estimate power draw and energy usage. The [generate_topology](topologies/generate_topology.py) file defines a generic function to generate topology files. We use this function to generate all the topologies required for the [surf](topologies/generate_topologies_surf.py), [marconi](topologies/generate_topologies_marconi.py), and [borg](topologies/generate_topologies_borg.py) workloads. [generate_topologies.sh](topologies/generate_topologies.sh) generates all the topologies required to run the experiments used in the paper. 
 
 - *Carbon* traces define the carbon intensity at a location during a specific time period. For the paper, we have used 158 traces between 2021 and 2024, collected from [ElectricityMaps](https://electricitymaps.com). These traces can be found in the carbon_traces folder. **Note**, carbon traces are not required. However, if no carbon trace is provided, no carbon metrics can be simulated.
